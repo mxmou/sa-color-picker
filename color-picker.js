@@ -361,6 +361,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
         option {
           color: #222;
+          background: var(--color-picker-background-color);
         }
 
         input:hover, select:hover, input:focus, select:focus {
