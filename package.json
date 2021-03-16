@@ -1,6 +1,6 @@
 {
   "name": "color-picker-web-component",
-  "version": "1.0.17",
+  "version": "1.1.0",
   "description": "Color Picker Web Component",
   "main": "dist/color-picker-esm.js",
   "scripts": {
@@ -11,8 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "@ctrl/tinycolor": "^2.6.1",
-    "@html-element-wrappers/input": "^0.5.1",
+    "@html-element-wrappers/input": "^0.5.6",
+    "@html-element-wrappers/button": "^0.5.2",
     "html-element-property-mixins": "^0.10.11"
+
   },
   "devDependencies": {
     "es-dev-server": "^1.46.0",
@@ -30,9 +32,6 @@
     "url": "https://github.com/GrahamSH-LLK/color-picker/issues"
   },
   "files": [
-    "/color-picker.js",
-    "/color-picker-slider.js",
-    "/utils/",
     "/dist/color-picker-esm.js"
   ],
   "keywords": [
