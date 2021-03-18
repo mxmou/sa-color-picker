@@ -3,7 +3,6 @@ import { PropertyChangedHandler, PropertiesChangedHandler, PropertiesChangedCall
 import { TinyColor } from '@ctrl/tinycolor';
 import { render, html } from 'lit-html/lib/shady-render';
 import { ColorPickerSlider } from './color-picker-slider.js';
-import './color-swatchgroup.js';
 import { enableFocusVisible } from './utils/focus-visible-polyfill.js';
 
 /**
@@ -83,19 +82,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         observe: true,
         DOM: true,
         changedHandler: '_selectedFormatChanged'
-      },
-
-      selectedSwatchgroup: {
-        observe: true,
-        DOM: true,
-      },
-
-      _swatches: {
-        observe: true
-      },
-
-      _swatchGroupLabels: {
-        observe: true
       },
 
       _pointerDown: {
@@ -181,12 +167,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     return 'linear-gradient(rgba(0,0,0,0) 0%, #000 100%), linear-gradient(to left, rgba(255,255,255,0) 0%, #fff 100%)';
   }
 
-  get selectedSwatchgroup() {
-    if(this['#selectedSwatchgroup']) return this['#selectedSwatchgroup'];
-    if(this._swatchGroupLabels && this._swatchGroupLabels.length > 0) return this._swatchGroupLabels[0];
-    return undefined;
-  }
-
   constructor() {
     super();
     this.attachShadow({mode: 'open'});
@@ -195,8 +175,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     this.selectedFormat = 'rgb';
     this._pointerDown = false;
     this._sliderDown = false;
-    this._swatches = [];
-    this._swatchGroupLabels = [];
     this.formats = this.supportedFormats;
     this.no_alpha = this.getAttribute('no_alpha');
     window.addEventListener('mouseup', this._handleMouseup.bind(this), false);
@@ -204,7 +182,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     enableFocusVisible(this._$grid);
     this._valueChanged();
     this.shadowRoot.querySelectorAll('input, select').forEach(item => enableFocusVisible(item));
-    this.addEventListener('swatch-clicked', this._handleSwatchClick.bind(this));
   }
 
   connectedCallback() {
@@ -223,8 +200,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
   static get propertiesChangedHandlers() {
     return {
-      '_notifyChanges': ['value', '_pointerDown', '_sliderDown'],
-      '_toggleSwatchGroups': ['selectedSwatchgroup', '_swatchGroupLabels']
+      '_notifyChanges': ['value', '_pointerDown', '_sliderDown']
     };
   }
 
@@ -244,6 +220,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
         :host {
           width: 240px;
+          height: 240px;
           display: block;
           --color-picker-background-color: #fff;
           --color-picker-color: #222;
@@ -279,7 +256,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
         #gridInput {
           width: 100%;
-          min-height: 160px;
           outline: none;
           flex: 1;
           position: relative;
@@ -316,13 +292,8 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           content: '';
         }
 
-        main {
-          padding: 8px;
-          display: grid;
-          grid-gap: 8px;
-        }
-
         #sliderInput {
+          padding: 8px;
           display: flex;
         }
 
@@ -377,7 +348,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         }
 
         .checkerboard:before {
-          background: linear-gradient(45deg, var(--bg-color--20) 25%, transparent 25%), linear-gradient(-45deg, var(--bg-color--20) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--bg-color--20) 75%), linear-gradient(-45deg, transparent 75%, var(--bg-color--20) 75%);
+          background: linear-gradient(45deg, #777 25%, transparent 25%), linear-gradient(-45deg, #777 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #777 75%), linear-gradient(-45deg, transparent 75%, #777 75%);
           background-size: 6px 6px;
           background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
         }
@@ -386,7 +357,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           width: 100%;
           height: 100%;
           position: relative;
-          background: var(--color-picker-current-color);
         }
 
         input, select {
@@ -428,6 +398,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         }
         
         #textInput {
+          padding: 0 8px 8px 8px;
           display: flex;
           /* align-items: center; */
         }
@@ -464,8 +435,8 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           border-radius: 0;
           background: transparent;
           padding: 3px;
-          text-align: start;
-          text-align-last: start;
+          text-align: center;
+          text-align-last: center;
           align-self: flex-start;
           margin: 0;
         }
@@ -492,22 +463,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           width: 100%;
         }
 
-        #swatches {
-          border-top: 1px solid var(--bg-color--20);
-        }
-
-        #swatches header {
-          padding: 8px 0;
-        }
-
-        ::slotted(:not(color-swatchgroup)) {
-          display: none;
-        }
-
-        ::slotted([hidden]) {
-          display: none!important;
-        }
-
         [hidden] {
           display: none!important;
         }
@@ -528,74 +483,56 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           @keydown="${this._handleGridKeydown}"
         ><div class="overlay"><div class="thumb"></div></div></section>
 
-        <main>
+        <section id="sliderInput">
+          <div id="sliders">
+            <color-picker-slider tabindex="0" .label="${'change hue'}" id="hueInput" .value="${this.hsv.h}" min="0" max="359" step="1" data-scheme="hsv" data-key="h" @input="${this._handleHueSliderInput}" @change="${this._handleHueSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
+            <color-picker-slider tabindex="0" .label="${'change alpha'}" id="alphaInput" class="absbefore absafter checkerboard" ?hidden="${this.no_alpha == "true"}" .value="${this.alpha * 100}" min="0" max="100" step="1" @input="${this._handleAlphaSliderInput}" @change="${this._handleAlphaSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
+          </div>
+          <div id="colorSteel" class="checkerboard absbefore">
+            <div class="inner"></div>
+          </div>
+        </section>
 
-          <section id="sliderInput">
-            <div id="sliders">
-              <color-picker-slider tabindex="0" .label="${'change hue'}" id="hueInput" .value="${this.hsv.h}" min="0" max="359" step="1" data-scheme="hsv" data-key="h" @input="${this._handleInput}" @change="${this._handleInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
-              <color-picker-slider tabindex="0" .label="${'change alpha'}" ?hidden="${this.no_alpha == "true"}" id="alphaInput" class="absbefore absafter checkerboard" .value="${this.alpha * 100}" min="0" max="100" step="1" @input="${this._handleAlphaSliderInput}" @change="${this._handleAlphaSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
-            </div>
-            <div id="colorSteel" class="checkerboard absbefore">
-              <div class="inner"></div>
-            </div>
-          </section>
+        <section id="textInput">
 
-          <section id="textInput">
+          <select aria-label="select color scheme" .selectedIndex="${(this.formats || []).indexOf(this.selectedFormat)}" @change="${this._handleSelectChange}" @input="${e => e.stopPropagation()}">
+            ${(this.formats || []).map(format => html`
+              <option .value="${format}">${format.toUpperCase()}</option>
+            `)}
+          </select>
 
-            <select aria-label="select color scheme" .selectedIndex="${(this.formats || []).indexOf(this.selectedFormat)}" @change="${this._handleSelectChange}" @input="${e => e.stopPropagation()}">
-              ${(this.formats || []).map(format => html`
-                <option .value="${format}">${format.toUpperCase()}</option>
-              `)}
-            </select>
+          <div ?hidden="${this.selectedFormat !== 'hsv'}" class="color-input">
+            <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsv.h)}" min="0" max="359" step="1" data-scheme="hsv", data-key="h" @input="${this._handleInput}"></label>
+            <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsv.s * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="s" @input="${this._handleInput}"></label>
+            <label data-name="v"><input aria-label="change value / brightness" type="number" .value="${Math.round(this.hsv.v * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="v" @input="${this._handleInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+          </div>
 
-            <div ?hidden="${this.selectedFormat !== 'hsv'}" class="color-input">
-              <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsv.h)}" min="0" max="359" step="1" data-scheme="hsv", data-key="h" @input="${this._handleInput}"></label>
-              <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsv.s * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="s" @input="${this._handleInput}"></label>
-              <label data-name="v"><input aria-label="change value / brightness" type="number" .value="${Math.round(this.hsv.v * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="v" @input="${this._handleInput}"></label>
-              <label data-name="%"><input aria-label="change alpha" type="number" ?hidden="${this.no_alpha == "true"}" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
-            </div>
+          <div ?hidden="${this.selectedFormat !== 'hsl'}" class="color-input">
+            <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsl.h)}" min="0" max="359" step="1" data-scheme="hsl", data-key="h" @input="${this._handleInput}"></label>
+            <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsl.s * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="s" @input="${this._handleInput}"></label>
+            <label data-name="l"><input aria-label="change light" type="number" .value="${Math.round(this.hsl.l * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="l" @input="${this._handleInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+          </div>
 
-            <div ?hidden="${this.selectedFormat !== 'hsl'}" class="color-input">
-              <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsl.h)}" min="0" max="359" step="1" data-scheme="hsl", data-key="h" @input="${this._handleInput}"></label>
-              <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsl.s * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="s" @input="${this._handleInput}"></label>
-              <label data-name="l"><input aria-label="change light" type="number" .value="${Math.round(this.hsl.l * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="l" @input="${this._handleInput}"></label>
-              <label data-name="%"><input aria-label="change alpha" type="number" ?hidden="${this.no_alpha == "true"}" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
-            </div>
+          <div ?hidden="${this.selectedFormat !== 'rgb'}" class="color-input">
+            <label data-name="r"><input aria-label="change red" type="number" .value="${this.rgb.r}" min="0" max="255" step="1" data-scheme="rgb", data-key="r" @input="${this._handleInput}"></label>
+            <label data-name="g"><input aria-label="change green" type="number" .value="${this.rgb.g}" min="0" max="255" step="1" data-scheme="rgb", data-key="g" @input="${this._handleInput}"></label>
+            <label data-name="b"><input aria-label="change blue" type="number" .value="${this.rgb.b}" min="0" max="255" step="1" data-scheme="rgb", data-key="b" @input="${this._handleInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+          </div>
 
-            <div ?hidden="${this.selectedFormat !== 'rgb'}" class="color-input">
-              <label data-name="r"><input aria-label="change red" type="number" .value="${this.rgb.r}" min="0" max="255" step="1" data-scheme="rgb", data-key="r" @input="${this._handleInput}"></label>
-              <label data-name="g"><input aria-label="change green" type="number" .value="${this.rgb.g}" min="0" max="255" step="1" data-scheme="rgb", data-key="g" @input="${this._handleInput}"></label>
-              <label data-name="b"><input aria-label="change blue" type="number" .value="${this.rgb.b}" min="0" max="255" step="1" data-scheme="rgb", data-key="b" @input="${this._handleInput}"></label>
-              <label data-name="%"><input aria-label="change alpha" ?hidden="${this.no_alpha == "true"}" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
-            </div>
+          <div ?hidden="${this.selectedFormat !== 'hex'}" class="color-input">
+            <label data-name="#"><input aria-label="change hex" type="text" .value="${this.hex}" data-scheme="hex" maxlength="6" @change="${this._handleInput}" @input="${e => e.stopPropagation()}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+          </div>
 
-            <div ?hidden="${this.selectedFormat !== 'hex'}" class="color-input">
-              <label data-name="#"><input aria-label="change hex" type="text" .value="${this.hex}" data-scheme="hex" maxlength="6" @change="${this._handleInput}" @input="${e => e.stopPropagation()}"></label>
-              <label data-name="%"><input aria-label="change alpha" ?hidden="${this.no_alpha == "true"}" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
-            </div>
+          <div ?hidden="${this.selectedFormat !== 'hex8'}" class="color-input">
+          <label data-name="#"><input aria-label="change hex8" type="text" .value="${this.hex8}" data-scheme="hex8" maxlength="8" @change="${this._handleInput}" @input="${e => e.stopPropagation()}"></label>
+          </div>
 
-            <div ?hidden="${this.selectedFormat !== 'hex8'}" class="color-input">
-            <label data-name="#"><input aria-label="change hex8" type="text" .value="${this.hex8}" data-scheme="hex8" maxlength="8" @change="${this._handleInput}" @input="${e => e.stopPropagation()}"></label>
-            </div>
-
-          </section>
-
-          <section id="swatches" ?hidden="${(this._swatches || []).length === 0 && (this._swatchGroupLabels || []).length === 0}">
-
-            <header>
-            <select aria-label="select swatch group" .selectedIndex="${(this._swatchGroupLabels || []).indexOf(this.selectedSwatchgroup)}" @change="${this._handleSelectSwatchChange}" @input="${e => e.stopPropagation()}">
-              ${(this._swatchGroupLabels || []).map(label => html`
-                <option .value="${label}">${label}</option>
-              `)}
-            </select>
-            </header>
-            <slot @slotchange="${this._handleSlotChange}"></slot>
-          </section>
-        
-        </main>
-
+        </section>
       </div>
-      
     `;
   }
 
@@ -684,7 +621,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
   _setColorSteelColor() {
     if(!this._$container) return;
-    this._setCSSProperty('--color-picker-current-color', this.color.toRgbString(), this._$container);
+    this._setCSSProperty('background', this.color.toRgbString(), this._$colorSteel.querySelector('.inner'));
   }
 
   _setAlphaSliderBackground() {
@@ -738,7 +675,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     if(!this._$container) return;
     const bgColor = new TinyColor(window.getComputedStyle(this._$container).backgroundColor);
     const method = bgColor.isLight() ? 'darken' : 'brighten';
-    this._setCSSProperty('--bg-color--10', bgColor[method]().toRgbString(), this._$container);
     this._setCSSProperty('--bg-color--20', bgColor[method]()[method]().toRgbString(), this._$container);
     this._setCSSProperty('--bg-color--60', bgColor[method]()[method]()[method]()[method]()[method]()[method]().toRgbString(), this._$container);
   }
@@ -747,31 +683,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     if(!selector) return;
     selector.style.setProperty(propName, value);
     if(window.ShadyCSS) window.ShadyCSS.styleSubtree(selector, {[propName] : value});
-  }
-
-  _handleSlotChange(e) {
-    const nodes = e.target.assignedNodes();
-    const swatchGroupLabels = [];
-    for(let i in nodes) if(nodes[i].tagName === 'COLOR-SWATCHGROUP') swatchGroupLabels.push(nodes[i].label);
-    this._swatchGroupLabels = [...swatchGroupLabels];
-    this._toggleSwatchGroups();
-  }
-
-  _handleSwatchClick(e) {
-    this.value = e.detail.value;
-  }
-
-  _handleSelectSwatchChange(e) {
-    this.selectedSwatchgroup = e.target.value;
-  }
-
-  _toggleSwatchGroups() {
-    this.querySelectorAll('color-swatchgroup').forEach(group => this._toggleSwatchGroup(group));
-  }
-
-  _toggleSwatchGroup(group) {
-    if(group.label === this.selectedSwatchgroup) return group.removeAttribute('hidden');
-    group.setAttribute('hidden', '');
   }
 
   get _thumbStyles() {
@@ -788,10 +699,6 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
 
   get _$colorSteel() {
     return this.shadowRoot.querySelector('#colorSteel');
-  }
-
-  get _$swatches() {
-    return this.shadowRoot.querySelector('color-swatchgroup');
   }
 
 }
