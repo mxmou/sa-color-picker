@@ -301,6 +301,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           display: flex;
           flex-direction: column;
           flex: 1;
+          justify-content: center;
           margin-right: 8px;
         }
 
@@ -308,8 +309,8 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           position: relative;
         }
 
-        color-picker-slider:nth-child(1) {
-          margin-bottom: 8px;
+        color-picker-slider + color-picker-slider {
+          margin-top: 8px;
         }
 
         color-picker-slider:after {
@@ -411,6 +412,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         .color-input label, .alpha-input label {
           position: relative;
           display: block;
+          flex-grow: 1;
         }
         
         .color-input label:after, .alpha-input label:after {
@@ -446,7 +448,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         }
 
         .color-input {
-          flex: 0;
+          flex: 1 0 0;
           display: flex;
           justify-content: flex-start;
         }
