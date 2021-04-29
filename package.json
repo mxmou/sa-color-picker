@@ -5,7 +5,8 @@
   "main": "dist/color-picker-esm.js",
   "scripts": {
     "start": "es-dev-server --http2 --app-index ./ --node-resolve --open --watch --port 3000",
-    "format": "eslint --ext .js . --fix --ignore-path .gitignore"
+    "format": "eslint --ext .js . --fix --ignore-path .gitignore",
+    "build": "rollup -c"
   },
   "author": "Wouter Vroege, GrahamSH",
   "license": "MIT",
@@ -15,10 +16,12 @@
     "html-element-property-mixins": "^0.10.11"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^11.2.1",
     "es-dev-server": "^1.46.0",
     "husky": "^4.2.3",
     "lit-html": "^1.2.1",
     "release-it": "^13.5.1",
+    "rollup": "^2.46.0",
     "web-component-analyzer": "^1.0.3"
   },
   "homepage": "https://github.com/GrahamSH-LLK/color-picker#readme",

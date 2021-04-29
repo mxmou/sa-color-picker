@@ -2360,7 +2360,7 @@ const defaultTemplateProcessor = new DefaultTemplateProcessor();
 // This line will be used in regexes to search for lit-html usage.
 // TODO(justinfagnani): inject version number at build time
 if (typeof window !== 'undefined') {
-    (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.3.0');
+    (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.0');
 }
 /**
  * Interprets a template literal as an HTML template that can efficiently
@@ -3588,6 +3588,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           display: flex;
           flex-direction: column;
           flex: 1;
+          justify-content: center;
           margin-right: 8px;
         }
 
@@ -3595,8 +3596,8 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           position: relative;
         }
 
-        color-picker-slider:nth-child(1) {
-          margin-bottom: 8px;
+        color-picker-slider + color-picker-slider {
+          margin-top: 8px;
         }
 
         color-picker-slider:after {
@@ -3698,6 +3699,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         .color-input label, .alpha-input label {
           position: relative;
           display: block;
+          flex-grow: 1;
         }
         
         .color-input label:after, .alpha-input label:after {
@@ -3733,7 +3735,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         }
 
         .color-input {
-          flex: 0;
+          flex: 1 0 0;
           display: flex;
           justify-content: flex-start;
         }
