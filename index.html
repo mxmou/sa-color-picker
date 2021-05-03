@@ -4,21 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="./src/color-picker.js"></script>
-  <title>demo/color-picker</title>
+  <title>color-picker-web-component dev</title>
   <style>
     html, body {
+      padding: 2px;
     }
   </style>
+  <link rel="stylesheet" href="https://unpkg.com/modern-normalize@1.0.0/modern-normalize.css">
 </head>
 <body>
-  <color-picker id="picker"></color-picker>
+  <h1>Color picker docs</h1>
+  <h2>Default</h2>
+  <color-picker id="pickerDefault"></color-picker>
+  <pre><code>    &lt;color-picker&gt;&lt;/color-picker&gt;</code></pre>
+
   <script>
-    picker.addEventListener('input', (e) => {
+    pickerDefault.addEventListener('input', (e) => {
       console.info('input', e.detail.value);
     })
-    picker.addEventListener('change', (e) => {
+    pickerDefault.addEventListener('change', (e) => {
       console.info('change', e.detail.value);
     })
   </script>
+  <h2>No alpha</h2>
+  <i>It's recomended to disable the HEX8 type in order to fully disable the alpha channel</i>
+    <color-picker no_alpha="true" id="picker"></color-picker>
+<pre><code>    &lt;color-picker no_alpha=&quot;true&quot; &gt;&lt;/color-picker&gt;</code></pre>
 </body>
 </html>
