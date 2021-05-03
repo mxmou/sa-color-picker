@@ -11,7 +11,7 @@
   "author": "Wouter Vroege, GrahamSH",
   "license": "MIT",
   "dependencies": {
-    "@ctrl/tinycolor": "^2.6.1",
+    "@ctrl/tinycolor": "^3.4.0",
     "@html-element-wrappers/input": "^0.5.1",
     "html-element-property-mixins": "^0.10.11"
   },
