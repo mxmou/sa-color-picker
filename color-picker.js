@@ -478,7 +478,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
           role="slider"
           aria-label="change saturation and ${this.selectedFormat === 'hsl' ? 'light' : 'value'}"
           aria-valuemin="0"
-          aria-valuemax="0.99"
+          aria-valuemax="1.00"
           aria-orientation="vertical"
           aria-valuetext="saturation ${this.hsv.s.toFixed(2)} ${this.selectedFormat === 'hsl' ? `light ${this.hsl.l.toFixed(2)}` : `value ${this.hsv.v.toFixed(2)}`}"
           @mousedown="${this._handleMousedown}"
@@ -579,8 +579,8 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     const {x, y} = this.getBoundingClientRect();
     const pointerX = Math.round(e.clientX - x);
     const pointerY = Math.round(e.clientY - y);
-    const saturation = Math.min(Math.max((pointerX / this._$grid.offsetWidth), 0), 0.99);
-    const value = 0.99 - Math.min(Math.max((pointerY / this._$grid.offsetHeight), 0), 0.99);
+    const saturation = Math.min(Math.max((pointerX / this._$grid.offsetWidth), 0), 1.00);
+    const value = 1.00 - Math.min(Math.max((pointerY / this._$grid.offsetHeight), 0), 1.00);
     
     if(this.selectedFormat === 'hsl') this.value = {...this.color.toHsl(), ...{s: saturation}, ...{l: value}};
     else this.value = {...this.color.toHsv(), ...{s: saturation}, ...{v: value}};

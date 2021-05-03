@@ -157,4 +157,4 @@ export class ColorPickerSlider extends PropertyChangedHandler(HTMLInputElement) 
   
 }
 
-window.customElements.define('color-picker-slider', ColorPickerSlider);
+window.customElements.define('color-picker-slider', ColorPickerSlider);requestAnimationFrame
