@@ -126,10 +126,10 @@ export class ColorPickerSlider extends PropertyChangedHandler(HTMLInputElement) 
 
   connectedCallback() {
     super.connectedCallback && super.connectedCallback();
-    window.requestAnimationFrame(() => {
+    setTimeout(() => {
       this._labelChanged();
       this.$element.addEventListener('change', this._handleChange.bind(this));
-    });
+    }, 0);
   }
 
   disconnectedCallback() {
@@ -157,4 +157,4 @@ export class ColorPickerSlider extends PropertyChangedHandler(HTMLInputElement) 
   
 }
 
-window.customElements.define('color-picker-slider', ColorPickerSlider);requestAnimationFrame
+window.customElements.define('color-picker-slider', ColorPickerSlider);
