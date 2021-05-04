@@ -1,6 +1,7 @@
-# color-picker
+# color-picker-web-component
 
-color-picker is a custom Element powered by @bgins TinyColor library.
+color-picker is a custom Element powered by @bgins TinyColor library. This is a fork of the original component by @woutervroege.
+
 - Supports hex, rgb(a), rrggbbaa/hex8, hsl(a) and hsv/b(a) color schemes.
 - Fully keyboard accessible
 
@@ -27,12 +28,12 @@ picker.addEventlistener('change', (e) => console.info('change', e.detail.value))
 
 ## Attributes
 
-| Attribute        | Type      | Description                                      |
-|------------------|-----------|--------------------------------------------------|
+| Attribute        | Type      | Description                                            |
+|------------------|-----------|--------------------------------------------------------|
 | `dark`           | `Boolean` | Force dark mode when dark-mode is disabled in browser. |
 | `light`          | `Boolean` | Force light mode when dark-mode is enabled in browser. |
-| `selectedformat` | `String`  |                                                  |
-
+| `selectedformat` | `String`  |                                                        |
+| `no_alpha`       | `Boolean` | Disable alpha in color picker. Does not disable HEX8.  |
 ## Properties
 
 | Property           | Attribute        | Modifiers | Type       | Default                          | Description                   |
