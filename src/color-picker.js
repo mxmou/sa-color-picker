@@ -4,7 +4,6 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { render, html } from 'lit-html/lib/shady-render';
 import { ColorPickerSlider } from './color-picker-slider.js';
 import { enableFocusVisible } from './utils/focus-visible-polyfill.js';
-
 /**
  * color-picker is a custom Element powered by @bgins TinyColor library.
  * - Supports hex, rgb(a), rrggbbaa/hex8, hsl(a) and hsv/b(a) color schemes.
@@ -176,7 +175,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     this._pointerDown = false;
     this._sliderDown = false;
     this.formats = this.supportedFormats;
-    this.no_alpha = (this.getAttribute('no_alpha') == 'true')
+    this.no_alpha = (this.getAttribute('no_alpha') == 'true');
     window.addEventListener('mouseup', this._handleMouseup.bind(this), false);
     window.addEventListener('mousemove', this._handleMousemove.bind(this), false);
     enableFocusVisible(this._$grid);
@@ -645,7 +644,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
   }
   _noAlphaChanged() {
 
-    this.no_alpha = (this.getAttribute('no_alpha') == 'true')
+    this.no_alpha = (this.getAttribute('no_alpha') == 'true');
   }
 
   _selectedFormatChanged() {
