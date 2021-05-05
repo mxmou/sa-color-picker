@@ -8,7 +8,7 @@
     "format": "eslint --ext .js . --fix --ignore-path .gitignore",
     "build": "rollup -c",
     "docs": "start-storybook",
-    "build-docs": "build-storybook"
+    "build-docs": "build-storybook -o docs-build"
   },
   "author": "Wouter Vroege, GrahamSH",
   "license": "MIT",
