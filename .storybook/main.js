@@ -5,19 +5,20 @@ module.exports = {
   ],
   "addons": [
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
+    "@storybook/addon-essentials",
+    "@storybook/addon-docs"
   ],
-    babel: async (options) => ({
+  babel: async (options) => ({
     ...options,
     "plugins": [
-    ["@babel/plugin-proposal-private-property-in-object",   {
+      ["@babel/plugin-proposal-private-property-in-object", {
         "loose": true
-    }
-    ],
-        ["@babel/plugin-proposal-private-methods",   {
+      }
+      ],
+      ["@babel/plugin-proposal-private-methods", {
         "loose": true
-    }
-    ]
+      }
+      ]
 
     ]
   }),

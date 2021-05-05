@@ -1,0 +1,392 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "color-picker-slider",
+      "path": "./src/color-picker-slider.js",
+      "attributes": [
+        {
+          "name": "accept",
+          "default": "\"accept\""
+        },
+        {
+          "name": "accessKey",
+          "default": "\"accessKey\""
+        },
+        {
+          "name": "alt",
+          "default": "\"alt\""
+        },
+        {
+          "name": "autocomplete",
+          "default": "\"autocomplete\""
+        },
+        {
+          "name": "autofocus",
+          "default": "\"autofocus\""
+        },
+        {
+          "name": "capture",
+          "default": "\"capture\""
+        },
+        {
+          "name": "checked",
+          "default": "\"checked\""
+        },
+        {
+          "name": "dirname",
+          "default": "\"dirname\""
+        },
+        {
+          "name": "disabled",
+          "default": "\"disabled\""
+        },
+        {
+          "name": "height",
+          "default": "\"height\""
+        },
+        {
+          "name": "inputmode",
+          "default": "\"inputmode\""
+        },
+        {
+          "name": "max",
+          "default": "\"max\""
+        },
+        {
+          "name": "maxlength",
+          "default": "\"maxlength\""
+        },
+        {
+          "name": "min",
+          "default": "\"min\""
+        },
+        {
+          "name": "minlength",
+          "default": "\"minlength\""
+        },
+        {
+          "name": "multiple",
+          "default": "\"multiple\""
+        },
+        {
+          "name": "name",
+          "default": "\"name\""
+        },
+        {
+          "name": "pattern",
+          "default": "\"pattern\""
+        },
+        {
+          "name": "placeholder",
+          "default": "\"placeholder\""
+        },
+        {
+          "name": "readonly",
+          "default": "\"readonly\""
+        },
+        {
+          "name": "required",
+          "default": "\"required\""
+        },
+        {
+          "name": "size",
+          "default": "\"size\""
+        },
+        {
+          "name": "src",
+          "default": "\"src\""
+        },
+        {
+          "name": "step",
+          "default": "\"step\""
+        },
+        {
+          "name": "tabIndex",
+          "default": "\"tabIndex\""
+        },
+        {
+          "name": "width",
+          "default": "\"width\""
+        },
+        {
+          "name": "value",
+          "default": "\"value\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "template",
+          "type": "TemplateResult"
+        },
+        {
+          "name": "list"
+        },
+        {
+          "name": "validationMessage"
+        },
+        {
+          "name": "validity"
+        },
+        {
+          "name": "willValidate"
+        },
+        {
+          "name": "$element"
+        },
+        {
+          "name": "accept",
+          "attribute": "accept",
+          "default": "\"accept\""
+        },
+        {
+          "name": "accessKey",
+          "attribute": "accessKey",
+          "default": "\"accessKey\""
+        },
+        {
+          "name": "alt",
+          "attribute": "alt",
+          "default": "\"alt\""
+        },
+        {
+          "name": "autocomplete",
+          "attribute": "autocomplete",
+          "default": "\"autocomplete\""
+        },
+        {
+          "name": "autofocus",
+          "attribute": "autofocus",
+          "default": "\"autofocus\""
+        },
+        {
+          "name": "capture",
+          "attribute": "capture",
+          "default": "\"capture\""
+        },
+        {
+          "name": "checked",
+          "attribute": "checked",
+          "default": "\"checked\""
+        },
+        {
+          "name": "dirname",
+          "attribute": "dirname",
+          "default": "\"dirname\""
+        },
+        {
+          "name": "disabled",
+          "attribute": "disabled",
+          "default": "\"disabled\""
+        },
+        {
+          "name": "height",
+          "attribute": "height",
+          "default": "\"height\""
+        },
+        {
+          "name": "inputmode",
+          "attribute": "inputmode",
+          "default": "\"inputmode\""
+        },
+        {
+          "name": "max",
+          "attribute": "max",
+          "default": "\"max\""
+        },
+        {
+          "name": "maxlength",
+          "attribute": "maxlength",
+          "default": "\"maxlength\""
+        },
+        {
+          "name": "min",
+          "attribute": "min",
+          "default": "\"min\""
+        },
+        {
+          "name": "minlength",
+          "attribute": "minlength",
+          "default": "\"minlength\""
+        },
+        {
+          "name": "multiple",
+          "attribute": "multiple",
+          "default": "\"multiple\""
+        },
+        {
+          "name": "name",
+          "attribute": "name",
+          "default": "\"name\""
+        },
+        {
+          "name": "pattern",
+          "attribute": "pattern",
+          "default": "\"pattern\""
+        },
+        {
+          "name": "placeholder",
+          "attribute": "placeholder",
+          "default": "\"placeholder\""
+        },
+        {
+          "name": "readonly",
+          "attribute": "readonly",
+          "default": "\"readonly\""
+        },
+        {
+          "name": "required",
+          "attribute": "required",
+          "default": "\"required\""
+        },
+        {
+          "name": "size",
+          "attribute": "size",
+          "default": "\"size\""
+        },
+        {
+          "name": "src",
+          "attribute": "src",
+          "default": "\"src\""
+        },
+        {
+          "name": "step",
+          "attribute": "step",
+          "default": "\"step\""
+        },
+        {
+          "name": "tabIndex",
+          "attribute": "tabIndex",
+          "default": "\"tabIndex\""
+        },
+        {
+          "name": "width",
+          "attribute": "width",
+          "default": "\"width\""
+        },
+        {
+          "name": "value",
+          "attribute": "value",
+          "default": "\"value\""
+        }
+      ],
+      "events": [
+        {
+          "name": "change"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "path": "./src/color-picker.js",
+      "description": "color-picker is a custom Element powered by @bgins TinyColor library.\n- Supports hex, rgb(a), rrggbbaa/hex8, hsl(a) and hsv/b(a) color schemes.\n- Fully keyboard accessible\n\n### Tested browsers (older / other browsers may work)\n- Chrome >= 67\n- Firefox >= 63\n- Safari >= 10.1\n- IE11+\n\n[![screenshot.gif](https://i.postimg.cc/T29LHm2m/screenshot.gif)](https://postimg.cc/grx2xxZk)\n\n```html\n<color-picker\n  id=\"picker\"\n  value=\"#ff0000\"\n  formats=\"hex,rgb,hsl,hsv,hex8\"\n  selectedformat=\"hex\"\n></color-picker>\n```\n```javascript\npicker.addEventlistener('input', (e) => console.info('input', e.detail.value))\npicker.addEventlistener('change', (e) => console.info('change', e.detail.value))\n```",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "color value",
+          "type": "String",
+          "default": "{\"h\":0,\"s\":1,\"v\":1}"
+        },
+        {
+          "name": "selectedFormat",
+          "description": "selected color scheme",
+          "type": "String",
+          "default": "\"rgb\""
+        },
+        {
+          "name": "formats",
+          "description": "list of visible color schemes",
+          "type": "Array",
+          "default": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
+        },
+        {
+          "name": "no_alpha"
+        },
+        {
+          "name": "selectedformat",
+          "type": "String"
+        },
+        {
+          "name": "dark",
+          "description": "Force dark mode when dark-mode is disabled in browser.",
+          "type": "Boolean"
+        },
+        {
+          "name": "light",
+          "description": "Force light mode when dark-mode is enabled in browser.",
+          "type": "Boolean"
+        }
+      ],
+      "properties": [
+        {
+          "name": "color"
+        },
+        {
+          "name": "supportedFormats",
+          "type": "string[]"
+        },
+        {
+          "name": "hsv"
+        },
+        {
+          "name": "alpha"
+        },
+        {
+          "name": "hex"
+        },
+        {
+          "name": "hex8"
+        },
+        {
+          "name": "rgb"
+        },
+        {
+          "name": "hsl"
+        },
+        {
+          "name": "value",
+          "attribute": "value",
+          "description": "color value",
+          "type": "String",
+          "default": "{\"h\":0,\"s\":1,\"v\":1}"
+        },
+        {
+          "name": "selectedFormat",
+          "attribute": "selectedFormat",
+          "description": "selected color scheme",
+          "type": "String",
+          "default": "\"rgb\""
+        },
+        {
+          "name": "formats",
+          "attribute": "formats",
+          "description": "list of visible color schemes",
+          "type": "Array",
+          "default": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
+        },
+        {
+          "name": "no_alpha",
+          "attribute": "no_alpha"
+        }
+      ],
+      "events": [
+        {
+          "name": "input"
+        },
+        {
+          "name": "change"
+        }
+      ],
+      "cssProperties": [
+        {
+          "name": "--color-picker-background-color",
+          "description": "backround color"
+        },
+        {
+          "name": "--color-picker-color",
+          "description": "text color"
+        }
+      ]
+    }
+  ]
+}
