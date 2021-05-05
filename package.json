@@ -6,7 +6,9 @@
   "scripts": {
     "start": "web-dev-server --http2 --app-index ./ --node-resolve --open --watch --port 3000",
     "format": "eslint --ext .js . --fix --ignore-path .gitignore",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "docs": "start-storybook",
+    "build-docs": "build-storybook"
   },
   "author": "Wouter Vroege, GrahamSH",
   "license": "MIT",
@@ -16,8 +18,14 @@
     "html-element-property-mixins": "^0.10.12"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/web-components": "^6.2.9",
     "@web/dev-server": "^0.1.17",
+    "babel-loader": "^8.2.2",
     "eslint": "^7.25.0",
     "lit-html": "^1.4.0",
     "rollup": "^2.46.0",
