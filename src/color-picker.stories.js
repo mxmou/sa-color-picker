@@ -5,6 +5,6 @@ export default {
   component: 'color-picker',
 };
 
-const Template = (args) => `<color-picker></color-picker>`;
+const Template = (args) => `<color-picker no_alpha="${args.no_alpha}"></color-picker>`;
 
 export const Primary = Template.bind({});
