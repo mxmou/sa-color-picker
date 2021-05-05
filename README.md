@@ -1,9 +1,11 @@
+![screenshot.gif](https://github.com/GrahamSH-LLK/color-picker/blob/fix-screenshot/screenshot.gif?raw=true)]
 # color-picker-web-component
-
-color-picker is a custom Element powered by @bgins TinyColor library. This is a fork of the original component by @woutervroege.
+[Docs](https://gh.grahamsh.com/color-picker)
+A custom color picker powered by @bgins TinyColor library. This is a fork of the original (unmaintained) component by @woutervroege.
 
 - Supports hex, rgb(a), rrggbbaa/hex8, hsl(a) and hsv/b(a) color schemes.
 - Fully keyboard accessible
+- Supports alpha channel (default `input[type=color]` doesn't)
 
 ### Tested browsers (older / other browsers may work)
 - Chrome >= 67
@@ -11,7 +13,6 @@ color-picker is a custom Element powered by @bgins TinyColor library. This is a 
 - Safari >= 10.1
 - IE11+
 
-![screenshot.gif](https://github.com/GrahamSH-LLK/color-picker/blob/fix-screenshot/screenshot.gif?raw=true)]
 
 ```html
 <color-picker

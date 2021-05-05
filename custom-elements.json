@@ -7,111 +7,111 @@
       "attributes": [
         {
           "name": "accept",
-          "default": "\"accept\""
+          "defaultValue": "\"accept\""
         },
         {
           "name": "accessKey",
-          "default": "\"accessKey\""
+          "defaultValue": "\"accessKey\""
         },
         {
           "name": "alt",
-          "default": "\"alt\""
+          "defaultValue": "\"alt\""
         },
         {
           "name": "autocomplete",
-          "default": "\"autocomplete\""
+          "defaultValue": "\"autocomplete\""
         },
         {
           "name": "autofocus",
-          "default": "\"autofocus\""
+          "defaultValue": "\"autofocus\""
         },
         {
           "name": "capture",
-          "default": "\"capture\""
+          "defaultValue": "\"capture\""
         },
         {
           "name": "checked",
-          "default": "\"checked\""
+          "defaultValue": "\"checked\""
         },
         {
           "name": "dirname",
-          "default": "\"dirname\""
+          "defaultValue": "\"dirname\""
         },
         {
           "name": "disabled",
-          "default": "\"disabled\""
+          "defaultValue": "\"disabled\""
         },
         {
           "name": "height",
-          "default": "\"height\""
+          "defaultValue": "\"height\""
         },
         {
           "name": "inputmode",
-          "default": "\"inputmode\""
+          "defaultValue": "\"inputmode\""
         },
         {
           "name": "max",
-          "default": "\"max\""
+          "defaultValue": "\"max\""
         },
         {
           "name": "maxlength",
-          "default": "\"maxlength\""
+          "defaultValue": "\"maxlength\""
         },
         {
           "name": "min",
-          "default": "\"min\""
+          "defaultValue": "\"min\""
         },
         {
           "name": "minlength",
-          "default": "\"minlength\""
+          "defaultValue": "\"minlength\""
         },
         {
           "name": "multiple",
-          "default": "\"multiple\""
+          "defaultValue": "\"multiple\""
         },
         {
           "name": "name",
-          "default": "\"name\""
+          "defaultValue": "\"name\""
         },
         {
           "name": "pattern",
-          "default": "\"pattern\""
+          "defaultValue": "\"pattern\""
         },
         {
           "name": "placeholder",
-          "default": "\"placeholder\""
+          "defaultValue": "\"placeholder\""
         },
         {
           "name": "readonly",
-          "default": "\"readonly\""
+          "defaultValue": "\"readonly\""
         },
         {
           "name": "required",
-          "default": "\"required\""
+          "defaultValue": "\"required\""
         },
         {
           "name": "size",
-          "default": "\"size\""
+          "defaultValue": "\"size\""
         },
         {
           "name": "src",
-          "default": "\"src\""
+          "defaultValue": "\"src\""
         },
         {
           "name": "step",
-          "default": "\"step\""
+          "defaultValue": "\"step\""
         },
         {
           "name": "tabIndex",
-          "default": "\"tabIndex\""
+          "defaultValue": "\"tabIndex\""
         },
         {
           "name": "width",
-          "default": "\"width\""
+          "defaultValue": "\"width\""
         },
         {
           "name": "value",
-          "default": "\"value\""
+          "defaultValue": "\"value\""
         }
       ],
       "properties": [
@@ -137,137 +137,137 @@
         {
           "name": "accept",
           "attribute": "accept",
-          "default": "\"accept\""
+          "defaultValue": "\"accept\""
         },
         {
           "name": "accessKey",
           "attribute": "accessKey",
-          "default": "\"accessKey\""
+          "defaultValue": "\"accessKey\""
         },
         {
           "name": "alt",
           "attribute": "alt",
-          "default": "\"alt\""
+          "defaultValue": "\"alt\""
         },
         {
           "name": "autocomplete",
           "attribute": "autocomplete",
-          "default": "\"autocomplete\""
+          "defaultValue": "\"autocomplete\""
         },
         {
           "name": "autofocus",
           "attribute": "autofocus",
-          "default": "\"autofocus\""
+          "defaultValue": "\"autofocus\""
         },
         {
           "name": "capture",
           "attribute": "capture",
-          "default": "\"capture\""
+          "defaultValue": "\"capture\""
         },
         {
           "name": "checked",
           "attribute": "checked",
-          "default": "\"checked\""
+          "defaultValue": "\"checked\""
         },
         {
           "name": "dirname",
           "attribute": "dirname",
-          "default": "\"dirname\""
+          "defaultValue": "\"dirname\""
         },
         {
           "name": "disabled",
           "attribute": "disabled",
-          "default": "\"disabled\""
+          "defaultValue": "\"disabled\""
         },
         {
           "name": "height",
           "attribute": "height",
-          "default": "\"height\""
+          "defaultValue": "\"height\""
         },
         {
           "name": "inputmode",
           "attribute": "inputmode",
-          "default": "\"inputmode\""
+          "defaultValue": "\"inputmode\""
         },
         {
           "name": "max",
           "attribute": "max",
-          "default": "\"max\""
+          "defaultValue": "\"max\""
         },
         {
           "name": "maxlength",
           "attribute": "maxlength",
-          "default": "\"maxlength\""
+          "defaultValue": "\"maxlength\""
         },
         {
           "name": "min",
           "attribute": "min",
-          "default": "\"min\""
+          "defaultValue": "\"min\""
         },
         {
           "name": "minlength",
           "attribute": "minlength",
-          "default": "\"minlength\""
+          "defaultValue": "\"minlength\""
         },
         {
           "name": "multiple",
           "attribute": "multiple",
-          "default": "\"multiple\""
+          "defaultValue": "\"multiple\""
         },
         {
           "name": "name",
           "attribute": "name",
-          "default": "\"name\""
+          "defaultValue": "\"name\""
         },
         {
           "name": "pattern",
           "attribute": "pattern",
-          "default": "\"pattern\""
+          "defaultValue": "\"pattern\""
         },
         {
           "name": "placeholder",
           "attribute": "placeholder",
-          "default": "\"placeholder\""
+          "defaultValue": "\"placeholder\""
         },
         {
           "name": "readonly",
           "attribute": "readonly",
-          "default": "\"readonly\""
+          "defaultValue": "\"readonly\""
         },
         {
           "name": "required",
           "attribute": "required",
-          "default": "\"required\""
+          "defaultValue": "\"required\""
         },
         {
           "name": "size",
           "attribute": "size",
-          "default": "\"size\""
+          "defaultValue": "\"size\""
         },
         {
           "name": "src",
           "attribute": "src",
-          "default": "\"src\""
+          "defaultValue": "\"src\""
         },
         {
           "name": "step",
           "attribute": "step",
-          "default": "\"step\""
+          "defaultValue": "\"step\""
         },
         {
           "name": "tabIndex",
           "attribute": "tabIndex",
-          "default": "\"tabIndex\""
+          "defaultValue": "\"tabIndex\""
         },
         {
           "name": "width",
           "attribute": "width",
-          "default": "\"width\""
+          "defaultValue": "\"width\""
         },
         {
           "name": "value",
           "attribute": "value",
-          "default": "\"value\""
+          "defaultValue": "\"value\""
         }
       ],
       "events": [
@@ -285,19 +285,19 @@
           "name": "value",
           "description": "color value",
           "type": "String",
-          "default": "{\"h\":0,\"s\":1,\"v\":1}"
+          "defaultValue": "{\"h\":0,\"s\":1,\"v\":1}"
         },
         {
           "name": "selectedFormat",
           "description": "selected color scheme",
           "type": "String",
-          "default": "\"rgb\""
+          "defaultValue": "\"rgb\""
         },
         {
           "name": "formats",
           "description": "list of visible color schemes",
           "type": "Array",
-          "default": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
+          "defaultValue": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
         },
         {
           "name": "no_alpha"
@@ -348,21 +348,21 @@
           "attribute": "value",
           "description": "color value",
           "type": "String",
-          "default": "{\"h\":0,\"s\":1,\"v\":1}"
+          "defaultValue": "{\"h\":0,\"s\":1,\"v\":1}"
         },
         {
           "name": "selectedFormat",
           "attribute": "selectedFormat",
           "description": "selected color scheme",
           "type": "String",
-          "default": "\"rgb\""
+          "defaultValue": "\"rgb\""
         },
         {
           "name": "formats",
           "attribute": "formats",
           "description": "list of visible color schemes",
           "type": "Array",
-          "default": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
+          "defaultValue": "[\"hex\",\"hex8\",\"rgb\",\"hsv\",\"hsl\"]"
         },
         {
           "name": "no_alpha",
