@@ -1,6 +1,6 @@
 ![screenshot.gif](https://github.com/GrahamSH-LLK/color-picker/blob/fix-screenshot/screenshot.gif?raw=true)]
 # color-picker-web-component
-[Docs](https://gh.grahamsh.com/color-picker)
+### [Read the interactive docs](https://gh.grahamsh.com/color-picker)
 A custom color picker powered by @bgins TinyColor library. This is a fork of the original (unmaintained) component by @woutervroege.
 
 - Supports hex, rgb(a), rrggbbaa/hex8, hsl(a) and hsv/b(a) color schemes.
