@@ -1,4 +1,4 @@
-const ObservedProperties$1 = (SuperClass) => class extends SuperClass {
+const ObservedProperties = (SuperClass) => class extends SuperClass {
 
   constructor() {
     super();
@@ -52,19 +52,17 @@ const ObservedProperties$1 = (SuperClass) => class extends SuperClass {
   
   static __propertyValueChanged(propName, oldValue, newValue) {
     if(oldValue === newValue) return;
-    this.propertyChangedCallback && this.propertyChangedCallback(propName, oldValue, newValue);
+    try { if(JSON.stringify(oldValue) === JSON.stringify(newValue)) return; } catch(e) {}    this.propertyChangedCallback && this.propertyChangedCallback(propName, oldValue, newValue);
   }
 
   __getPropertyDescriptor(obj, key) {
     if(!obj) return;
-    const item = Object.getOwnPropertyDescriptor(obj, key);
-    if(item && !item.value) return item;
-    return this.__getPropertyDescriptor(Object.getPrototypeOf(obj), key);
+    return Object.getOwnPropertyDescriptor(obj, key) || this.__getPropertyDescriptor(Object.getPrototypeOf(obj), key)
   }
 
 };
 
-const DOMProperties$1 = (SuperClass) => class extends SuperClass {
+const DOMProperties = (SuperClass) => class extends SuperClass {
 
   static get observedAttributes() {
     const observedAttributes = [];
@@ -96,15 +94,15 @@ const DOMProperties$1 = (SuperClass) => class extends SuperClass {
 
 };
 
-const ReflectedProperties$1 = (SuperClass) => class extends SuperClass {
+const ReflectedProperties = (SuperClass) => class extends SuperClass {
 
   connectedCallback() {
+    super.connectedCallback();
     for(var i in this.constructor.reflectedProperties) {
       const propName = this.constructor.reflectedProperties[i];
       const attrName = this.constructor.__getAttributeNameByPropertyName.call(this, propName);
       this.constructor.__setDOMAttribute.call(this, attrName, propName, this[propName]);
     }
-    super.connectedCallback();
   }
 
   propertyChangedCallback(propName, oldValue, newValue) {
@@ -137,7 +135,7 @@ const ReflectedProperties$1 = (SuperClass) => class extends SuperClass {
 
 };
 
-const Properties$1 = (SuperClass) => class extends ReflectedProperties$1(DOMProperties$1(ObservedProperties$1(SuperClass))) {
+const Properties = (SuperClass) => class extends ReflectedProperties(DOMProperties(ObservedProperties(SuperClass))) {
 
   static get properties() { return {}; }
 
@@ -238,7 +236,7 @@ const PropertiesChangedCallback = (SuperClass) => class extends SuperClass {
 
   static __addChangedProperty(propName, oldValue) {
     if(!this.__changedProperties.has(propName)) this.__changedProperties.set(propName, oldValue);
-    window.setTimeout(this.constructor.__invokeCallback.bind(this));
+    window.requestAnimationFrame(this.constructor.__invokeCallback.bind(this));
   }
 
   static __invokeCallback() {
@@ -2924,194 +2922,6 @@ const render = (result, container, options) => {
     }
 };
 
-const ObservedProperties = (SuperClass) => class extends SuperClass {
-
-  constructor() {
-    super();
-    this.constructor.__saveInitialPropertyValues.call(this);
-    this.constructor.__initProperties.call(this);
-  }
-
-  connectedCallback() {
-    super.connectedCallback && super.connectedCallback();
-    this.constructor.__setInitialPropertyValues.call(this);
-  }
-
-  static __saveInitialPropertyValues() {
-    this.__initialPropertyValues = new Map();
-    (this.constructor.observedProperties || []).map(propName => this.__initialPropertyValues.set(propName, this[propName]));
-  }
-
-  static __setInitialPropertyValues() {
-    this.__initialPropertyValues.forEach((val, propName) => {
-      if(val !== undefined) this[propName] = val;
-    });
-  }
-
-  static __initProperties() {
-    this.constructor.__propertyAccessors = {};
-    const observedProps = this.constructor.observedProperties || [];
-    observedProps.map(propName => this.constructor.__initProperty.call(this, propName));
-  }
-
-  static __initProperty(propName) {
-    this.constructor.__propertyAccessors[propName] = this.__getPropertyDescriptor(this, propName);
-    Object.defineProperty(this, propName, {      
-      set(val) { this.constructor.__setProperty.call(this, propName, val); },
-      get() { return this.constructor.__getProperty.call(this, propName); },
-    });
-  }
-
-  static __getProperty(propName) {
-    const customAccessors = this.constructor.__propertyAccessors[propName] || {};
-    if(customAccessors.get) return customAccessors.get.call(this, propName);
-    return this[`#${propName}`];
-  }
-
-  static __setProperty(propName, newValue) {
-    const customAccessors = this.constructor.__propertyAccessors[propName] || {};
-    const oldValue = this[propName];
-    if(customAccessors.set) customAccessors.set.call(this, newValue);
-    else this[`#${propName}`] = newValue;  
-    this.constructor.__propertyValueChanged.call(this, propName, oldValue, this[propName]);
-  }
-  
-  static __propertyValueChanged(propName, oldValue, newValue) {
-    if(oldValue === newValue) return;
-    try { if(JSON.stringify(oldValue) === JSON.stringify(newValue)) return; } catch(e) {}    this.propertyChangedCallback && this.propertyChangedCallback(propName, oldValue, newValue);
-  }
-
-  __getPropertyDescriptor(obj, key) {
-    if(!obj) return;
-    return Object.getOwnPropertyDescriptor(obj, key) || this.__getPropertyDescriptor(Object.getPrototypeOf(obj), key)
-  }
-
-};
-
-const DOMProperties = (SuperClass) => class extends SuperClass {
-
-  static get observedAttributes() {
-    const observedAttributes = [];
-    const DOMProps = this.DOMProperties || [];
-    for(let i in DOMProps) observedAttributes.push((this.propertyAttributeNames || {})[DOMProps[i]] || DOMProps[i].toLowerCase());
-    return observedAttributes;
-  }
-
-  attributeChangedCallback(attrName, oldValue, newValue) {
-    if(oldValue === newValue) return;
-    const propName = this.constructor.__getPropertyNameByAttributeName.call(this, attrName);
-    if(!propName) return;
-    this.constructor.__setDOMProperty.call(this, propName, this[propName], newValue);
-  }
-
-  static __getPropertyNameByAttributeName(attrName) {
-    const attributeNames = this.constructor.propertyAttributeNames;
-    for(let propName in attributeNames) if(attributeNames[propName] === attrName) return propName;
-    const DOMPropertyNames = this.constructor.DOMProperties || [];
-    for(let i in DOMPropertyNames) if(DOMPropertyNames[i].toLowerCase() === attrName) return DOMPropertyNames[i];
-  }
-
-  static __setDOMProperty(propName, oldValue, newValue) {
-    const converters = this.constructor.propertyFromAttributeConverters || {};
-    const converter = converters[propName];
-    if(converter) newValue = converter.call(this, oldValue, newValue);
-    this[propName] = newValue;
-  }
-
-};
-
-const ReflectedProperties = (SuperClass) => class extends SuperClass {
-
-  connectedCallback() {
-    super.connectedCallback();
-    for(var i in this.constructor.reflectedProperties) {
-      const propName = this.constructor.reflectedProperties[i];
-      const attrName = this.constructor.__getAttributeNameByPropertyName.call(this, propName);
-      this.constructor.__setDOMAttribute.call(this, attrName, propName, this[propName]);
-    }
-  }
-
-  propertyChangedCallback(propName, oldValue, newValue) {
-    super.propertyChangedCallback && super.propertyChangedCallback(propName, oldValue, newValue);
-    if(!this.isConnected) return;
-
-    const reflectedProps = this.constructor.reflectedProperties || {};
-    const attrReflects = reflectedProps.indexOf(propName) !== -1;
-    if(!attrReflects) return;
-    
-    const attrName = this.constructor.__getAttributeNameByPropertyName.call(this, propName);
-    this.constructor.__setDOMAttribute.call(this, attrName, propName, newValue);
-  }
-
-  static __setDOMAttribute(attrName, propName, value) {
-    const converters = this.constructor.propertyToAttributeConverters || {};
-    const converter = converters[propName];
-    if(converter) value = converter.call(this, value);
-    if(value === null || value === undefined) return this.removeAttribute(attrName);
-    this.setAttribute(attrName, value);
-  }
-
-  static __getAttributeNameByPropertyName(propName) {
-    const reflectedProps = this.constructor.reflectedProperties || [];
-    const attrNames = this.constructor.propertyAttributeNames || {};
-    if(reflectedProps.indexOf(propName) === -1) return;
-    const attrName = attrNames[propName] || propName.toLowerCase();
-    return attrName;
-  }
-
-};
-
-const Properties = (SuperClass) => class extends ReflectedProperties(DOMProperties(ObservedProperties(SuperClass))) {
-
-  static get properties() { return {}; }
-
-  static get observedProperties() {
-    return Object.keys(this.__getFilteredProperties.call(this, 'observe', true));
-  }
-
-  static get DOMProperties() {
-    return Object.keys(this.__getFilteredProperties.call(this, 'DOM', true));
-  }
-
-  static get reflectedProperties() {
-    return Object.keys(this.__getFilteredProperties.call(this, 'reflect', true));
-  }
-
-  static get propertyChangedHandlers() {
-    return this.__getPropertyValues.call(this, 'changedHandler');
-  }
-
-  static get propertyAttributeNames() {
-    const propValues = {};
-    const props = this.properties;
-    for(let propName in props) propValues[propName] = props[propName]['attributeName'] || propName.toLowerCase();
-    return propValues;
-  }
-
-  static get propertyToAttributeConverters() {
-    return this.__getPropertyValues.call(this, 'toAttributeConverter');
-  }
-
-  static get propertyFromAttributeConverters() {
-    return this.__getPropertyValues.call(this, 'fromAttributeConverter');
-  }
-
-  static __getFilteredProperties(key, value) {
-    const filteredProps = {};
-    const props = this.properties;
-    for(let propName in props) if(props[propName][key] === value) filteredProps[propName] = props[propName];
-    return filteredProps;
-  }
-
-  static __getPropertyValues(key) {
-    const propValues = {};
-    const props = this.properties;
-    for(let propName in props) propValues[propName] = props[propName][key];
-    return propValues;
-  }
-
-};
-
 const BooleanFromAttribute = (oldValue, newValue) => {
   if(newValue === '') return true;
   return false;
@@ -3815,7 +3625,7 @@ window.customElements.define('color-picker-slider', ColorPickerSlider);
  *
  */
 
-class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(PropertyChangedHandler(Properties$1(HTMLElement)))) {
+class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(PropertyChangedHandler(Properties(HTMLElement)))) {
 
   static get properties() {
     return {
