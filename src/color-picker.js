@@ -175,7 +175,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     this._pointerDown = false;
     this._sliderDown = false;
     this.formats = this.supportedFormats;
-    this.no_alpha = (this.getAttribute('no_alpha') == 'true');
+    this.no_alpha = this.getAttribute('no_alpha');
     window.addEventListener('mouseup', this._handleMouseup.bind(this), false);
     window.addEventListener('mousemove', this._handleMousemove.bind(this), false);
     enableFocusVisible(this._$grid);
@@ -487,7 +487,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
         <section id="sliderInput">
           <div id="sliders">
             <color-picker-slider tabindex="0" .label="${'change hue'}" id="hueInput" .value="${this.hsv.h}" min="0" max="359" step="1" data-scheme="hsv" data-key="h" @input="${this._handleHueSliderInput}" @change="${this._handleHueSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
-            <color-picker-slider tabindex="0" .label="${'change alpha'}" id="alphaInput" class="absbefore absafter checkerboard" ?hidden="${this.no_alpha}" .value="${this.alpha * 100}" min="0" max="100" step="1" @input="${this._handleAlphaSliderInput}" @change="${this._handleAlphaSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
+            <color-picker-slider tabindex="0" .label="${'change alpha'}" id="alphaInput" class="absbefore absafter checkerboard" ?hidden="${this.no_alpha == "true"}" .value="${this.alpha * 100}" min="0" max="100" step="1" @input="${this._handleAlphaSliderInput}" @change="${this._handleAlphaSliderInput}" @mousedown="${() => this._sliderDown = true}" @mouseup="${() => this._sliderDown = false}"></color-picker-slider>
           </div>
           <div id="colorSteel" class="checkerboard absbefore">
             <div class="inner"></div>
@@ -506,26 +506,26 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
             <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsv.h)}" min="0" max="359" step="1" data-scheme="hsv", data-key="h" @input="${this._handleInput}"></label>
             <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsv.s * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="s" @input="${this._handleInput}"></label>
             <label data-name="v"><input aria-label="change value / brightness" type="number" .value="${Math.round(this.hsv.v * 100)}" min="0" max="100" step="1" data-scheme="hsv", data-key="v" @input="${this._handleInput}"></label>
-            <label ?hidden="${this.no_alpha}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
           </div>
 
           <div ?hidden="${this.selectedFormat !== 'hsl'}" class="color-input">
             <label data-name="h"><input aria-label="change hue" type="number" .value="${Math.round(this.hsl.h)}" min="0" max="359" step="1" data-scheme="hsl", data-key="h" @input="${this._handleInput}"></label>
             <label data-name="s"><input aria-label="change saturation" type="number" .value="${Math.round(this.hsl.s * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="s" @input="${this._handleInput}"></label>
             <label data-name="l"><input aria-label="change light" type="number" .value="${Math.round(this.hsl.l * 100)}" min="0" max="100" step="1" data-scheme="hsl", data-key="l" @input="${this._handleInput}"></label>
-            <label ?hidden="${this.no_alpha}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
           </div>
 
           <div ?hidden="${this.selectedFormat !== 'rgb'}" class="color-input">
             <label data-name="r"><input aria-label="change red" type="number" .value="${this.rgb.r}" min="0" max="255" step="1" data-scheme="rgb", data-key="r" @input="${this._handleInput}"></label>
             <label data-name="g"><input aria-label="change green" type="number" .value="${this.rgb.g}" min="0" max="255" step="1" data-scheme="rgb", data-key="g" @input="${this._handleInput}"></label>
             <label data-name="b"><input aria-label="change blue" type="number" .value="${this.rgb.b}" min="0" max="255" step="1" data-scheme="rgb", data-key="b" @input="${this._handleInput}"></label>
-            <label ?hidden="${this.no_alpha}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
           </div>
 
           <div ?hidden="${this.selectedFormat !== 'hex'}" class="color-input">
             <label data-name="#"><input aria-label="change hex" type="text" .value="${this.hex}" data-scheme="hex" maxlength="6" @change="${this._handleInput}" @input="${e => e.stopPropagation()}"></label>
-            <label ?hidden="${this.no_alpha}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
+            <label ?hidden="${this.no_alpha == "true"}" data-name="%"><input aria-label="change alpha" type="number" .value="${Math.round(this.alpha * 100)}" min="0" max="100" step="1" data-scheme="alpha" @input="${this._handleAlphaInput}"></label>
           </div>
 
           <div ?hidden="${this.selectedFormat !== 'hex8'}" class="color-input">
@@ -643,8 +643,7 @@ class ColorPicker extends PropertiesChangedHandler(PropertiesChangedCallback(Pro
     if(this.formats.indexOf(this.selectedFormat) === -1) this.selectedFormat = this.formats[0];
   }
   _noAlphaChanged() {
-
-    this.no_alpha = (this.getAttribute('no_alpha') == 'true');
+    this.no_alpha = this.getAttribute('no_alpha')
   }
 
   _selectedFormatChanged() {
