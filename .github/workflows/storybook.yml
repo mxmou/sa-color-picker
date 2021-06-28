@@ -1,7 +1,7 @@
 name: Build and Deploy
 on: 
   push:
-    paths: [".storybook/**", "src/**", ".github/**"] 
+    paths: [".storybook/**", "src/**", ".github/**","package.json"] 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
